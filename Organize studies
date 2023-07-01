@@ -1,0 +1,466 @@
+CREATE table Department (
+Dept_ID INTEGER PRIMARY KEY AUTOINCREMENT,
+Dept_Name TEXT,
+Num_of_Employees INTEGER
+);
+
+INSERT INTO Department (Dept_Name)
+VALUES 
+("HR"), ('Finance'), ('Marketing'), ('Sales'),
+('Tech Support'), ('Data Analysis'),
+("Operations"), ('Customer Service'),
+('Research and Development (R&D)'),
+('Administration'),
+('Legal'),('Supply Chain'),
+('Business Development');
+
+select * from Department;
+
+........................................................
+
+-- Step 1: Create a new table with the desired data type
+CREATE TABLE Employees (
+    ID INTEGER PRIMARY KEY,
+    First_Name vanchar(20),
+    Last_Name vanchar(20),
+    Salary DECIMAL(10, 2)
+);
+
+-- Step 2: Copy data from the old table to the new table
+INSERT INTO Employees (ID, First_Name, Last_Name, Salary)
+SELECT ID, F_name, L_name, CAST(Salary AS DECIMAL(10, 2))
+FROM Staff;
+
+-- Step 3: Optionally, you can delete the old table after copying the data
+DROP TABLE Staff;
+
+SELECT * from Employees
+
+
+
+-- Step 4: Rename the new table to the original table name if desired
+--ALTER TABLE New_Employees RENAME TO Employees;
+...........................................................
+
+-- Step 1: Create a new table with the desired data type and auto-incrementing property for the ID column
+CREATE TABLE New_Employees (
+    ID INTEGER PRIMARY KEY AUTOINCREMENT,
+    First_Name TEXT,
+    Last_Name TEXT,
+    Salary DECIMAL(10, 2)
+);
+
+-- Step 2: Copy data from the old table to the new table
+INSERT INTO New_Employees (First_Name, Last_Name, Salary)
+SELECT First_Name, Last_Name, Salary
+FROM Employees;
+
+-- Step 3: Optionally, you can delete the old table after copying the data
+DROP TABLE Employees;
+
+-- Step 4: Rename the new table to the original table name if desired
+ALTER TABLE New_Employees RENAME TO Employees;
+
+SELECT * from Employees
+.........................................................
+
+INSERT INTO employees (first_name, last_name, salary)
+VALUES (
+    (SELECT name FROM first_names ORDER BY RANDOM() LIMIT 1),
+    (SELECT name2 FROM last_names2 ORDER BY RANDOM() LIMIT 1),
+    ROUND(50000 + ABS(RANDOM()) % 50001)
+);
+
+    --(name, name2, ROUND(50000 + (RANDOM() * 50000), 2));
+
+--SELECT * from Employees;
+........................................................
+SELECT 50000 + ABS(RANDOM()) % 50001 AS random_salary;
+SELECT ROUND(50000 + ABS(RANDOM()) % 50001, 2) AS random_salary;
+...........................................................
+-- Create a temporary table to hold the first names
+CREATE TEMP TABLE first_names (name TEXT);
+
+-- Insert some example first names into the temporary table
+INSERT INTO first_names (name) VALUES
+    ('John'),
+    ('Jane'),
+    ('Michael'),
+    ('Sarah'),
+    ('David'),
+    ('Emily'),
+    ('Robert'),
+    ('Jennifer'),
+    ('William'),
+    ('Elizabeth'),
+    ('James'),
+    ('Jessica'),
+    ('Christopher'),
+    ('Mary'),
+    ('Daniel'),
+    ('Patricia'),
+    ('Matthew'),
+    ('Linda'),
+    ('Anthony'),
+    ('Karen'),
+    ('Andrew'),
+    ('Michelle'),
+    ('Christopher'),
+    ('Amanda'),
+    ('Kevin'),
+    ('Christopher'),
+    ('Anna'),
+    ('Ryan'),
+    ('Samantha'),
+    ('Thomas'),
+    ('Olivia'),
+    ('Benjamin'),
+    ('Grace'),
+    ('Ethan'),
+    ('Sophia'),
+    ('Matthew'),
+    ('Ava'),
+    ('William'),
+    ('Emma'),
+    ('Alexander'),
+    ('Isabella'),
+    ('Daniel'),
+    ('Mia'),
+    ('James'),
+    ('Ella'),
+    ('Joshua'),
+    ('Natalie'),
+    ('Joseph'),
+    ('Chloe'),
+    ('David'),
+    ('Lily'),
+    ('Andrew'),
+    ('Aiden'),
+    ('Elizabeth'),
+    ('Mason'),
+    ('Evelyn'),
+    ('Logan'),
+    ('Amelia'),
+    ('John'),
+    ('Abigail'),
+    ('Michael'),
+    ('Harper'),
+    ('Nicholas'),
+    ('Emily'),
+    ('Elijah'),
+    ('Elizabeth'),
+    ('Gabriel'),
+    ('Scarlett');
+
+
+,.................................................................
+SELECT name FROM first_names ORDER BY RANDOM() LIMIT 1;
+..............................................................
+-- Create a temporary table to hold the last names
+CREATE TEMP TABLE last_names2 (name2 TEXT);
+
+-- Insert some example last names into the temporary table
+INSERT INTO last_names2 (name2) VALUES
+    ('Smith'),
+    ('Johnson'),
+    ('Williams'),
+    ('Jones'),
+    ('Brown'),
+    ('Davis'),
+    ('Miller'),
+    ('Wilson'),
+    ('Taylor'),
+    ('Clark'),
+    ('Martinez'),
+    ('Anderson'),
+    ('Lopez'),
+    ('Lee'),
+    ('Gonzalez'),
+    ('Harris'),
+    ('Lewis'),
+    ('Robinson'),
+    ('Walker'),
+    ('Hall'),
+    ('Allen'),
+    ('Young'),
+    ('King'),
+    ('Scott'),
+    ('Green'),
+    ('Carter'),
+    ('Diaz'),
+    ('Evans'),
+    ('Gomez'),
+    ('Hayes'),
+    ('Irwin'),
+    ('Johnson'),
+    ('Khan'),
+    ('Lopez'),
+    ('Mitchell'),
+    ('Nguyen'),
+    ('Ortiz'),
+    ('Parker'),
+    ('Quinn'),
+    ('Rogers'),
+    ('Scott'),
+    ('Thomas'),
+    ('Upton'),
+    ('Vargas'),
+    ('White'),
+    ('Xu'),
+    ('Yang'),
+    ('Zhang'),
+    ('Adams');
+..................................................................
+SELECT name2 FROM last_names2 ORDER BY RANDOM() LIMIT 1;
+...................................................................
+--UPDATE employees
+--SET salary = ROUND(50000 + ABS(RANDOM()) % 50001);
+
+-- Update the Dept column for employees with random department names
+UPDATE employees
+SET Dept = random_departments.Dept_Name
+FROM (
+    SELECT Dept_ID, Dept_Name
+    FROM Department
+    WHERE Dept IS NULL
+    ORDER BY RANDOM()
+    LIMIT (SELECT COUNT(*) FROM employees WHERE Dept IS NULL)
+) AS random_departments
+WHERE employees.id = random_departments.Dept_ID
+  AND employees.Dept IS NULL;
+
+-- Select all rows from the Employees table to show the changes
+SELECT * FROM employees;
+..................................................................
+ALTER TABLE employees
+ADD COLUMN Dept TEXT;
+
+
+ALTER TABLE employees
+ADD COLUMN Location TEXT;
+
+ALTER TABLE employees
+ADD COLUMN Email TEXT;
+...................................................................
+-- Update the Dept column for employees with random department names
+WITH RECURSIVE Numbers AS (
+  SELECT 1 AS number
+  UNION ALL
+  SELECT number + 1
+  FROM Numbers
+  WHERE number < 37);
+
+UPDATE employees
+SET Dept = (
+    SELECT Dept_Name
+    FROM Department
+    ORDER BY RANDOM()
+    LIMIT 1)
+    where id = (
+SELECT number
+FROM Numbers
+ORDER BY RANDOM()
+LIMIT 1);
+  
+-- Select all rows from the Employees table to show the changes
+SELECT * FROM employees;
+.................................................................
+WITH RECURSIVE NumberSequence AS (
+  SELECT 1 AS n
+  UNION ALL
+  SELECT n + 1
+  FROM NumberSequence
+  WHERE n < 37
+)
+SELECT n AS new_id
+FROM NumberSequence;
+.....................................................................
+WITH RECURSIVE Numbers AS (
+  SELECT 1 AS number
+  UNION ALL
+  SELECT number + 1
+  FROM Numbers
+  WHERE number < 37
+)
+SELECT number
+FROM Numbers
+ORDER BY RANDOM()
+LIMIT 1;
+........................................................................
+WITH RECURSIVE Numbers AS (
+  SELECT 1 AS number
+  UNION ALL
+  SELECT number + 1
+  FROM Numbers
+  WHERE number < 37
+),
+RandomEmployeeIDs AS (
+  SELECT id
+  FROM employees
+  ORDER BY RANDOM()
+  LIMIT 1
+)
+UPDATE employees
+SET Dept = (
+  SELECT Dept_Name
+  FROM Department
+  ORDER BY RANDOM()
+  LIMIT 1
+)
+WHERE id = (SELECT id FROM RandomEmployeeIDs);
+
+-- Recursive call
+WITH RandomEmployeeID AS (
+  SELECT id
+  FROM employees
+  WHERE Dept IS NOT NULL
+  ORDER BY RANDOM()
+  LIMIT 1
+)
+UPDATE employees
+SET Dept = (
+  SELECT Dept_Name
+  FROM Department
+  ORDER BY RANDOM()
+  LIMIT 1
+)
+WHERE id = (SELECT id FROM RandomEmployeeID)
+  AND employees.Dept IS NOT NULL;
+  
+  
+  
+SELECT * from Employees;  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
