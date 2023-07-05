@@ -251,13 +251,20 @@ SELECT DISTINCT department, Dept_ID
 FROM The_Office
 order by department
 ----------------------------------------------------------------------------------------------------------
+--The following is the difference between using the WHERE clause and the HAVING clause
+
+-- Retrieve all employees who work in the Sales department
+SELECT *
+FROM The_Office
+WHERE department = 'Sales';
 
 
-
-
-
-
-
+-- Find the departments that have more than 2 employees
+SELECT department, COUNT(*) AS employee_count
+FROM The_Office
+GROUP BY department
+HAVING COUNT(*) > 2
+order by employee_count desc;
 ----------------------------------------------------------------------------------------------------------
 
 
