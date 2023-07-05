@@ -1,0 +1,70 @@
+-- Insert new rows into the 'indian_startup_funding' table
+-- with current date, random StartupName, IndustryVertical, CityLocation, and AmountinUSD.
+
+INSERT INTO indian_startup_funding (Date, StartupName, IndustryVertical, CityLocation, AmountinUSD)
+
+-- Select values for the columns to be inserted
+
+SELECT
+  DATE('now'),  -- Use the current date for the 'Date' column
+  t1.StartupName,  -- Select a random 'StartupName' from existing data
+  t1.IndustryVertical,  -- Select a random 'IndustryVertical' from existing data
+  t1.CityLocation,  -- Select a random 'CityLocation' from existing data
+  ROUND(1000000 + ABS(RANDOM()) % 500001)  -- Generate a random 'AmountinUSD' between 1000000 and 1500000
+
+-- Create a temporary result set 't1' with random 'StartupName', 'IndustryVertical', 'CityLocation',
+-- and row numbers for each row in 'indian_startup_funding' table
+
+FROM (
+  SELECT
+    StartupName,
+    IndustryVertical,
+    CityLocation,
+    ROW_NUMBER() OVER () as rn
+  FROM indian_startup_funding
+  ORDER BY RANDOM()
+) t1
+
+-- Create a temporary result set 't2' with random row numbers between 1 and the total count of rows
+-- in 'indian_startup_funding' table, to be used for joining with 't1'
+
+JOIN (
+  SELECT
+    (ABS(RANDOM()) % (SELECT COUNT(*) FROM indian_startup_funding)) + 1 as rn
+  FROM LoopCounter
+) t2 ON t1.rn = t2.rn;
+
+--------------------------------------------------------------------------------------------------------------
+
+INSERT INTO indian_startup_funding (Date, StartupName, IndustryVertical, CityLocation, AmountinUSD)
+VALUES (
+DATE('now'),
+(SELECT StartupName FROM indian_startup_funding ORDER BY RANDOM() LIMIT 1),
+(SELECT IndustryVertical FROM indian_startup_funding ORDER BY RANDOM() LIMIT 1),
+(SELECT CityLocation FROM indian_startup_funding ORDER BY RANDOM() LIMIT 1),
+ROUND(500000 + ABS(RANDOM()) % 500001)
+);
+
+this is my original creation 
+--------------------------------------------------------------------------------------------------------------
+-- SELECT * from indian_startup_funding
+-- where date = "2023-07-05" 
+--and IndustryVertical = "E-Commerce"
+--and CityLocation = "Tulangan"
+
+-- DELETE from indian_startup_funding
+-- where date = "2023-07-05" 
+--and IndustryVertical = "E-Commerce"
+--and CityLocation = "Tulangan"
+
+This is to select than delete uneceasary rows - safest way to delete a row
+______________________________________________________
+
+
+
+database will be provided later 
+
+
+
+
+
