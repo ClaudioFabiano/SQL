@@ -1,0 +1,49 @@
+Some important codes about the system:
+
+-- Get the version of SQLite
+SELECT sqlite_version();
+
+-- Get information about the columns in a table
+PRAGMA table_info(table_name);
+
+-- Get the list of attached databases
+PRAGMA database_list;
+
+-- Calculate the size of the database file in bytes
+PRAGMA page_size * (SELECT page_count FROM pragma_page_count);
+
+-- Get the SQL statement used to create a specific table
+SELECT sql FROM sqlite_master WHERE type = 'table' AND name = 'table_name';
+
+-- Get the list of indexes in the database
+SELECT name, tbl_name FROM sqlite_master WHERE type = 'index';
+
+-- Get the list of all tables in the database
+SELECT name FROM sqlite_master WHERE type = 'table';
+
+-- Get the SQL statement used to create all tables in the database
+SELECT sql FROM sqlite_master WHERE type = 'table';
+
+-- Get the list of tables and their row counts
+SELECT name, (SELECT COUNT(*) FROM name) AS row_count
+FROM sqlite_master
+WHERE type = 'table';
+
+-- Get the current date and time in a specific format
+SELECT strftime('%Y-%m-%d %H:%M:%S', 'now');
+
+-- Get the current date and time separately
+SELECT DATE('now'), TIME('now');
+
+-- Get the current timestamp
+SELECT CURRENT_TIMESTAMP;
+
+-- Get the current user
+SELECT user();
+
+-- Get the name of the current database
+SELECT current_database();
+
+-- Calculate the size of the database in bytes
+SELECT page_count * page_size AS size_in_bytes
+FROM pragma_page_count(), pragma_page_size();
