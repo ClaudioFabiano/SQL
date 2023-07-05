@@ -1,0 +1,86 @@
+When getting information about time on SQL lite, you can use the following commands:
+SELECT time()
+SELECT date()
+SELECT datetime()
+
+or 
+
+-- Get the current date, time, and timestamp
+SELECT date('now') AS current_date,
+       time('now') AS current_time,
+       datetime('now') AS current_timestamp;
+
+or
+
+SELECT CURRENT_DATE AS current_date,
+       CURRENT_TIME AS current_time,
+       CURRENT_TIMESTAMP AS current_timestamp;
+
+or 
+
+-- Format the current timestamp as 'YYYY-MM-DD HH:MM:SS'
+SELECT strftime('%Y-%m-%d %H:%M:%S', 'now') AS formatted_timestamp;
+
+-- Format the current timestamp as 'YYYY-MM-DD HH:MM:SS'
+SELECT strftime('%Y-%m-%d %H:%M:%S', 'now','+5 days') AS formatted_timestamp;
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+As well as you can timetravel haha
+
+-- Get the date and time for five days in the future
+SELECT date('now', '+5 days') AS future_date,
+       time('now', '+5 days') AS future_time,
+       datetime('now', '+5 days') AS future_timestamp;
+
+-- Get the date and time for five days ago
+SELECT date('now', '-5 days') AS past_date,
+       time('now', '-5 days') AS past_time,
+       datetime('now', '-5 days') AS past_timestamp;
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+-- Get the year, month, and day from a GIVEN timestamp
+SELECT 
+strftime('%Y', 'now') AS year,
+strftime('%m', 'now') AS month,
+strftime('%d', 'now') AS day;
+
+OR 
+
+-- Get the year, month, and day from a given timestamp
+SELECT 
+strftime('%Y', '2023-07-05 09:30:00') AS year,
+strftime('%m', '2023-07-05 09:30:00') AS month,
+strftime('%d', '2023-07-05 09:30:00') AS day;
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+SELECT strftime('%d', date) AS day
+FROM indian_startup_funding
+--WHERE AmountinUSD = 17411265.0;
+
+SELECT strftime('%Y-%m-%d', 'now') AS current_date,
+       strftime('%H:%M:%S', 'now') AS current_time;
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
