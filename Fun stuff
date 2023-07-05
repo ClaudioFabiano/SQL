@@ -1,0 +1,333 @@
+Created a table named animals, then decided to have some fun creating a new table using the tv show the office data.
+the idea is training some basic commands like update, alter, drop, delete, etc 
+----------------------------------------------------------------------------------------------------------
+-- Create a table to store information about animals in a zoo
+
+-- Create the animals table
+CREATE TABLE animals (
+  animal_id INTEGER PRIMARY KEY,
+  species TEXT NOT NULL,
+  name TEXT,
+  age INTEGER,
+  habitat TEXT
+);
+
+-- Add data to the 'animals' table
+INSERT INTO animals (animal_id, species, name, age, habitat)
+VALUES
+  -- Row 1: Lion
+  (1, 'Lion', 'Simba', 5, 'Savannah'),
+  -- Row 2: Elephant
+  (2, 'Elephant', 'Dumbo', 10, 'Jungle'),
+  -- Row 3: Giraffe
+  (3, 'Giraffe', 'Gerald', 4, 'Grassland'),
+  -- Row 4: Penguin
+  (4, 'Penguin', 'Tux', 2, 'Arctic'),
+  -- Row 5: Monkey
+  (5, 'Monkey', 'Banana', 3, 'Forest');
+
+-- Display the contents of the 'animals' table
+SELECT * FROM animals;
+
+DELETE FROM animals;
+VACUUM; -- to delete all rows of the table 
+
+DROP table animals
+----------------------------------------------------------------------------------------------------------
+-- Create a table to store information about characters from the TV show "The Office"
+
+-- Create the 'office_characters' table
+CREATE TABLE office_characters (
+  character_id INTEGER PRIMARY KEY,
+  name TEXT NOT NULL,
+  position TEXT,
+  department TEXT,
+  office_location TEXT
+);
+
+-- Add data to the 'office_characters' table
+INSERT INTO office_characters (character_id, name, position, department, office_location)
+VALUES
+  -- Row 1: Michael Scott
+  (1, 'Michael Scott', 'Regional Manager', 'Dunder Mifflin', 'Scranton'),
+  -- Row 2: Jim Halpert
+  (2, 'Jim Halpert', 'Sales Representative', 'Sales', 'Scranton'),
+  -- Row 3: Pam Beesly
+  (3, 'Pam Beesly', 'Receptionist', 'Administration', 'Scranton'),
+  -- Row 4: Dwight Schrute
+  (4, 'Dwight Schrute', 'Assistant to the Regional Manager', 'Sales', 'Scranton'),
+  -- Row 5: Angela Martin
+  (5, 'Angela Martin', 'Head of Accounting', 'Accounting', 'Scranton');
+
+-- Display the contents of the 'office_characters' table
+SELECT * FROM office_characters;
+----------------------------------------------------------------------------------------------------------
+INSERT INTO office_characters (character_id, name, position, department, office_location)
+VALUES
+  -- Row 6: Stanley Hudson
+  (6, 'Stanley Hudson', 'Sales Representative', 'Sales', 'Scranton'),
+  -- Row 7: Ryan Howard
+  (7, 'Ryan Howard', 'Temp', 'Intern', 'Scranton'),
+  -- Row 8: Oscar Martinez
+  (8, 'Oscar Martinez', 'Accountant', 'Accounting', 'Scranton'),
+  -- Row 9: Kevin Malone
+  (9, 'Kevin Malone', 'Accountant', 'Accounting', 'Scranton'),
+  -- Row 10: Toby Flenderson
+  (10, 'Toby Flenderson', 'Human Resources Representative', 'Human Resources', 'Scranton'),
+  -- Row 11: Phyllis Vance
+  (11, 'Phyllis Vance', 'Sales Representative', 'Sales', 'Scranton'),
+  -- Row 12: Creed Bratton
+  (12, 'Creed Bratton', 'Quality Assurance', 'Quality Assurance', 'Scranton'),
+  -- Row 13: Meredith Palmer
+  (13, 'Meredith Palmer', 'Supplier Relations', 'Supplier Relations', 'Scranton'),
+  -- Row 14: Kelly Kapoor
+  (14, 'Kelly Kapoor', 'Customer Service Representative', 'Customer Service', 'Scranton'),
+  -- Row 15: Darryl Philbin
+  (15, 'Darryl Philbin', 'Warehouse Foreman', 'Warehouse', 'Scranton'),
+  -- Row 16: Andy Bernard
+  (16, 'Andy Bernard', 'Regional Director of Sales', 'Sales', 'Scranton'),
+  -- Row 17: Erin Hannon
+  (17, 'Erin Hannon', 'Receptionist', 'Administration', 'Scranton'),
+  -- Row 18: Gabe Lewis
+  (18, 'Gabe Lewis', 'Sabre Corporate Liaison', 'Corporate', 'Scranton'),
+  -- Row 19: Holly Flax
+  (19, 'Holly Flax', 'Human Resources Representative', 'Human Resources', 'Scranton'),
+  -- Row 20: Robert California
+  (20, 'Robert California', 'CEO', 'Executive', 'Scranton');
+----------------------------------------------------------------------------------------------------------
+-- select * from office_characters
+-- where name = "Michael Scott"
+
+-- UPDATE office_characters
+-- set department = "Management"
+-- where name = "Michael Scott"
+----------------------------------------------------------------------------------------------------------
+-- ALTER TABLE office_characters
+-- add COLUMN Dept_ID char(5)
+----------------------------------------------------------------------------------------------------------
+-- ALTER TABLE office_characters
+-- ADD COLUMN country VARCHAR(20);
+
+ALTER TABLE office_characters
+RENAME COLUMN country TO Country;
+----------------------------------------------------------------------------------------------------------
+-- ALTER TABLE office_characters
+-- ADD COLUMN city TEXT;
+
+ALTER TABLE office_characters
+DROP COLUMN city;
+
+ALTER TABLE office_characters
+Add COLUMN City varchar(30);
+----------------------------------------------------------------------------------------------------------
+ALTER TABLE office_characters
+RENAME COLUMN character_id to ID
+----------------------------------------------------------------------------------------------------------
+ALTER TABLE office_characters
+DROP COLUMN telephone_number
+ALTER TABLE office_characters
+DROP COLUMN City
+----------------------------------------------------------------------------------------------------------
+ALTER TABLE office_characters RENAME TO The_Office;
+
+UPDATE The_Office
+SET Country = "USA"
+
+UPDATE The_Office
+SET Country = "Jamaica"
+where name = "Toby Flenderson"
+----------------------------------------------------------------------------------------------------------
+--PRAGMA table_info(The_Office);
+
+-- Update Accounting department
+UPDATE The_Office
+SET Dept_ID = "A1001"
+WHERE Department = 'Accounting';
+
+-- Update Administration department
+UPDATE The_Office
+SET Dept_ID = "A1002"
+WHERE Department = 'Administration';
+
+-- Update Corporate department
+UPDATE The_Office
+SET Dept_ID = "C1001"
+WHERE Department = 'Corporate';
+
+-- Update Customer Service department
+UPDATE The_Office
+SET Dept_ID = "C1002"
+WHERE Department = 'Customer Service';
+
+-- Update Executive department
+UPDATE The_Office
+SET Dept_ID = "E1001"
+WHERE Department = 'Executive';
+
+-- Update Human Resources department
+UPDATE The_Office
+SET Dept_ID = 'H1001'
+WHERE Department = 'Human Resources';
+
+-- Update Intern department
+UPDATE The_Office
+SET Dept_ID = 'I1001'
+WHERE Department = 'Intern';
+
+-- Update Management department
+UPDATE The_Office
+SET Dept_ID = 'M1001'
+WHERE Department = 'Management';
+
+-- Update Quality Assurance department
+UPDATE The_Office
+SET Dept_ID = 'Q1001'
+WHERE Department = 'Quality Assurance';
+
+-- Update Sales department
+UPDATE The_Office
+SET Dept_ID = 'S1001'
+WHERE Department = 'Sales';
+
+-- Update Supplier Relations department
+UPDATE The_Office
+SET Dept_ID = 'S1002'
+WHERE Department = 'Supplier Relations';
+
+-- Update Warehouse department
+UPDATE The_Office
+SET Dept_ID = 'W1001'
+WHERE Department = 'Warehouse';
+----------------------------------------------------------------------------------------------------------
+Now, this is a way to simplify the code:
+-- Update the Dept_ID column based on the Department values
+UPDATE The_Office
+SET Dept_ID = 
+  CASE Department
+    WHEN 'Accounting' THEN 'A1001'                 -- Assign 'A1001' for Accounting department
+    WHEN 'Administration' THEN 'A1002'            -- Assign 'A1002' for Administration department
+    WHEN 'Corporate' THEN 'C1001'                 -- Assign 'C1001' for Corporate department
+    WHEN 'Customer Service' THEN 'C1002'          -- Assign 'C1002' for Customer Service department
+    WHEN 'Executive' THEN 'E1001'                 ...
+    WHEN 'Human Resources' THEN 'H1001'           
+    WHEN 'Intern' THEN 'I1001'                    
+    WHEN 'Management' THEN 'M1001'                
+    WHEN 'Quality Assurance' THEN 'Q1001'         
+    WHEN 'Sales' THEN 'S1001'                     
+    WHEN 'Supplier Relations' THEN 'S1002'        
+    WHEN 'Warehouse' THEN 'W1001'                 
+  END;
+----------------------------------------------------------------------------------------------------------
+GPT enhanced code:
+-- Create the DepartmentMapping table to store department mappings
+CREATE TABLE DepartmentMapping (
+  Department TEXT PRIMARY KEY,
+  Dept_ID TEXT
+);
+
+-- Insert department mappings into the DepartmentMapping table
+INSERT INTO DepartmentMapping (Department, Dept_ID)
+VALUES
+  ('Accounting', 'A1001'),                  -- Mapping for Accounting department
+  ('Administration', 'A1002'),              -- Mapping for Administration department
+  ('Corporate', 'C1001'),                   -- Mapping for Corporate department
+  ('Customer Service', 'C1002'),            -- Mapping for Customer Service department
+  ('Executive', 'E1001'),                   -- Mapping for Executive department
+  ('Human Resources', 'H1001'),             -- Mapping for Human Resources department
+  ('Intern', 'I1001'),                      -- Mapping for Intern department
+  ('Management', 'M1001'),                  -- Mapping for Management department
+  ('Quality Assurance', 'Q1001'),           -- Mapping for Quality Assurance department
+  ('Sales', 'S1001'),                       -- Mapping for Sales department
+  ('Supplier Relations', 'S1002'),          -- Mapping for Supplier Relations department
+  ('Warehouse', 'W1001');                   -- Mapping for Warehouse department
+
+-- Update the Dept_ID column in The_Office table based on the mappings in DepartmentMapping
+UPDATE The_Office
+SET Dept_ID = dm.Dept_ID
+FROM DepartmentMapping dm
+WHERE The_Office.Department = dm.Department;
+----------------------------------------------------------------------------------------------------------
+SELECT DISTINCT department, Dept_ID
+FROM The_Office
+order by department
+----------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
