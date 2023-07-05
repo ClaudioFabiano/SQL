@@ -266,33 +266,75 @@ GROUP BY department
 HAVING COUNT(*) > 2
 order by employee_count desc;
 ----------------------------------------------------------------------------------------------------------
+-- ALTER TABLE The_Office
+-- ADD COLUMN Salary DECIMAL(10, 2);
 
 
-
-
-
-
-
+UPDATE The_Office
+SET Salary = 
+  CASE Position
+    WHEN 'Regional Manager' THEN 100000.00
+    WHEN 'Sales Representative' THEN 50000.00
+    WHEN 'Receptionist' THEN 30000.00
+    WHEN 'Assistant to the Regional Manager' THEN 45000.00
+    WHEN 'Head of Accounting' THEN 90000.00
+    WHEN 'Accountant' THEN 60000.00
+    WHEN 'Temp' THEN 25000.00
+    WHEN 'Human Resources Representative' THEN 55000.00
+    WHEN 'Quality Assurance' THEN 55000.00
+    WHEN 'Supplier Relations' THEN 50000.00
+    WHEN 'Customer Service Representative' THEN 40000.00
+    WHEN 'Warehouse Foreman' THEN 60000.00
+    WHEN 'Regional Director of Sales' THEN 120000.00
+    WHEN 'Sabre Corporate Liaison' THEN 80000.00
+    WHEN 'CEO' THEN 200000.00
+  END;
 ----------------------------------------------------------------------------------------------------------
+-- Use of fubquery to retrieve positions with salary greater than 60000.00
 
-
-
-
-
-
-
+SELECT *
+FROM The_Office
+WHERE Position IN (
+  SELECT Position
+  FROM The_Office
+  WHERE Salary > 60000.00
+)
+order by Salary desc;
 ----------------------------------------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
+INSERT INTO The_Office (ID, name, position, department, office_location, Dept_ID, Country, Salary)
+VALUES (21, 'Claudio Fabiano', 'Data Analyst', 'Analysis', 'Surrey', "D0101", "Canada", 60000)
 ----------------------------------------------------------------------------------------------------------
+-- Subquery to retrieve the average salary
 
+SELECT * FROM The_Office
+WHERE Salary > (SELECT AVG(Salary) as AVG FROM The_Office)
+ORDER by Salary DESC;
+----------------------------------------------------------------------------------------------------------
+-- ALTER TABLE The_Office
+-- ADD COLUMN ProposedRaise DECIMAL(10, 2);
+
+
+UPDATE The_Office
+SET ProposedRaise = 
+  CASE Position
+    WHEN 'Regional Manager' THEN Salary * .10  -- 10% raise for Regional Manager
+    WHEN 'Sales Representative' THEN Salary * .03  -- 3% raise for Sales Representative
+    WHEN 'Receptionist' THEN Salary * .05  -- 5% raise for Receptionist
+    WHEN 'Assistant to the Regional Manager' THEN Salary * .05  -- 5% raise for Assistant to the Regional Manager
+    WHEN 'Head of Accounting' THEN Salary * .15  -- 15% raise for Head of Accounting
+    WHEN 'Accountant' THEN Salary * .10  -- 10% raise for Accountant
+    WHEN 'Temp' THEN Salary * .02  -- 2% raise for Temp
+    WHEN 'Human Resources Representative' THEN Salary * .01  -- 1% raise for Human Resources Representative
+    WHEN 'Quality Assurance' THEN Salary * .01  -- 1% raise for Quality Assurance
+    WHEN 'Supplier Relations' THEN Salary * .03  -- 3% raise for Supplier Relations
+    WHEN 'Customer Service Representative' THEN Salary * .05  -- 5% raise for Customer Service Representative
+    WHEN 'Warehouse Foreman' THEN Salary * .10  -- 10% raise for Warehouse Foreman
+    WHEN 'Regional Director of Sales' THEN Salary * .20  -- 20% raise for Regional Director of Sales
+    WHEN 'Sabre Corporate Liaison' THEN Salary * .08  -- 8% raise for Sabre Corporate Liaison
+    WHEN 'CEO' THEN Salary * .15  -- 15% raise for CEO
+    WHEN 'Data Analyst' THEN Salary * .05 -- 5% raise for Data Analyst
+    ELSE Salary  -- No raise for other positions
+  END;
 
 
 
