@@ -65,6 +65,42 @@ ______________________________________________________
 database will be provided later 
 
 
+--------------------------------------------------------------------------------------------------------------
+
+SELECT * from indian_startup_funding
+WHERE IndustryVertical like "%E-C%"
+and CityLocation = "Bengaluru"
+and AmountinUSD < 3000000
+
+-- UPDATE indian_startup_funding
+-- SET IndustryVertical = "Consulting"
+-- WHERE IndustryVertical = "E-Commerce"
+-- and CityLocation = "Bengaluru"
+-- and AmountinUSD < 3000000
 
 
 
+Safe way to update a table
+
+
+--------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------
